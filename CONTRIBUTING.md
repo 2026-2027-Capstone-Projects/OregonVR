@@ -82,7 +82,7 @@ The team will configure continuous integration to run relevant tests and quality
 
 ## Security & Secrets
 
-Never commit passwords, API keys, credentials, or unauthorized confidential information. Report exposed secrets or security concerns to the Project Manager. The team will establish secret and dependency scanning during Sprint 2.
+Never commit passwords, API keys, credentials, or unauthorized confidential information. The team will establish secret and dependency scanning during Sprint 2.
 Report exposed secrets or security concerns to the AI Coordinator (Swathi Pappoppula) immediately
 
 ## Documentation Expectations
