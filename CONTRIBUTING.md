@@ -53,7 +53,7 @@ The team will track how each requirement is enforced. Since some tools are not y
 |---|---|---|---|
 | Tests | Automated test suite | Swathi| Sprint 2 |
 | Code review | GitHub pull request approval | Shreya | Sprint 2 |
-| Documentation | Pull request checklist | Byrden | Sprint 2 |
+| Documentation | Pull request checklist | Bryden | Sprint 2 |
 | Linting | Linter and CI job | Swathi | Sprint 2 |
 | Security | Secret-scanning check | Shreya | Sprint 2 |
 | CI | GitHub Actions workflow | Bryden | Sprint 2 |
@@ -83,6 +83,7 @@ The team will configure continuous integration to run relevant tests and quality
 ## Security & Secrets
 
 Never commit passwords, API keys, credentials, or unauthorized confidential information. Report exposed secrets or security concerns to the Project Manager. The team will establish secret and dependency scanning during Sprint 2.
+Report exposed secrets or security concerns to the AI Coordinator (Swathi Pappoppula) immediately
 
 ## Documentation Expectations
 
@@ -94,8 +95,8 @@ Ask project questions through Microsoft Teams. Contact the repository maintainer
 
 **Repository maintainer:** Swathi Pappoppula
 
-**Project Manager:** Swathi Pappoppula
+**Project Manager:** Shreya Suresh
 
-**AI Coordinator:** Shreya Suresh 
+**AI Coordinator:** Swathi Pappoppula 
 
 **Quality Owner:** Bryden Takayama
