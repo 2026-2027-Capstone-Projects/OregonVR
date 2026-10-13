@@ -2,12 +2,12 @@
 
 ## Project Context
 OregonVR is a capstone project building a VR experience of the Oregon Garden
-for [partner/organization], partnered with Dr. Amicis.
-- **Engine:** Unity [version, e.g., 2022.3 LTS]
+for Oregon State University, partnered with Dr. Amicis.
+- **Engine:** Unity 
 - **Language:** C#
-- **Target platform:** [e.g., Meta Quest 3 / PC VR]
+- **Target platform:** To be confirmed in Sprint 2 (owner: Bryden)
 - **Repository:** https://github.com/swath1p/OregonVR
-- Charter, roles, and decisions: see the team charter in Microsoft Teams; ADRs live in `docs/adr/`.
+- Charter, roles, and decisions: see the team charter in Microsoft Teams; ADRs live in `docs/adr/`(to be added). 
 
 ## Conventions
 - C# naming: PascalCase for classes, methods, and public members; camelCase for private fields and locals.
