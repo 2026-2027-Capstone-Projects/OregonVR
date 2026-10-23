@@ -14,7 +14,8 @@ This README documents our current workflow, tools, settings, asset import proces
 The following tools are used throughout the development process:
 
 - Unity 6.3 LTS
-- gaussian splatting software
+- 3D Splat App
+- Polycam LiDAR & 3D Scanner for iPhone & Android
 - GitHub
 
 ## Workflow
@@ -29,6 +30,7 @@ Our general workflow consists of the following steps:
 7. Test the environment and make adjustments to improve performance.
 
 ## Settings and Configurations
+- Videos taken with an iPhone camera
 
 ## Asset Import Procedure
 To import a new vegetation asset into the VR environment:
