@@ -42,6 +42,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           projectPath: .
+          unityVersion: 6000.6.6f1
           testMode: playmode
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: Unity Edit Mode Test Results
@@ -81,6 +82,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           projectPath: .
+          unityVersion: 6000.6.6f1
           targetPlatform: StandaloneWindows64
 
       - name: Upload build
