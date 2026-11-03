@@ -43,7 +43,7 @@ jobs:
         with:
           projectPath: .
           unityVersion: 6000.6.6f1
-          testMode: playmode
+          testMode: editmode
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: Unity Edit Mode Test Results
 
