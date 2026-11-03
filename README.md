@@ -1,57 +1,67 @@
-# Oregon Garden VR - README
+# Oregon Garden VR
 
-**Team Members:**
-- Swathi Pappoppula
-- Shreya Suresh
-- Bryden Takayama
+A virtual reality experience of the Oregon Garden, built in Unity. Real vegetation is captured with photos and video, reconstructed into 3D with Gaussian Splatting, and placed into a walkable virtual garden.
 
-## Project Overview
-The Oregon Garden VR project aims to create an immersive virtual reality environment featuring plants and vegetation found in Oregon. Our team is using Gaussian Splatting to turn real-world images and videos into realistic 3D assets that can be placed into a virtual garden. 
+Capstone Project 40, Oregon State University. Partner: Dr. Raffaele De Amicis.
 
-This README documents our current workflow, tools, settings, asset import process, problems encountered, and remaining limitations. 
+## Quickstart (from a clean clone)
 
-## Tools and Versions
-The following tools are used throughout the development process:
+**Current state:** the repository contains a Unity starter scene (`GetStarted_Scene`), one script (`ModelClickListener`), and two automated tests. The garden scene and splat assets are not in the repository yet.
 
-- Unity 6.3 LTS
-- 3D Splat App
-- Polycam LiDAR & 3D Scanner for iPhone & Android
-- GitHub
+### Prerequisites
 
-## Workflow
-Our general workflow consists of the following steps: 
+- [Unity Hub](https://unity.com/download)
+- Unity Editor **6000.6.6f1** (Unity Hub → Installs → Install Editor → Archive, if it is not listed)
+- Git
 
-1. Capture images or videos of Oregon vegetation from multiple angles.
-2. Process the captured images or videos using gaussian splatting software.
-3. Generate 3D Gaussian Splatting assets from the captured data.
-4. Clean up and adjust the assets as needed.
-5. Import the assets into our VR development environment
-6. Arrange the vegetation to create the virtual garden.
-7. Test the environment and make adjustments to improve performance.
+### Steps
 
-## Settings and Configurations
-- Videos taken with an iPhone camera
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/2026-2027-Capstone-Projects/OregonVR.git
+   ```
+2. Open Unity Hub → **Add** → **Add project from disk** → select the `OregonVR` folder.
+3. Open the project with Unity **6000.6.6f1**. The first import takes a few minutes. (A one-time "URP Global Settings Asset has been created" warning is normal.)
+4. In the Project window, open `Assets/Scenes/GetStarted_Scene.unity` and press **Play**. The scene runs with no red errors in the Console.
+5. Run the tests: **Window → General → Test Runner → EditMode → Run All**. Both tests (`BasicPlayModeTest`, `ModelClickListener_LogsMessage`) pass.
 
-## Asset Import Procedure
-To import a new vegetation asset into the VR environment:
+On macOS, Unity's menus (Window, Assets, …) are in the menu bar at the top of the screen, not inside the editor window.
 
-1. Generate or obtain the Gaussian Splatting asset.
-2. Check that the asset is saved in a compatible file format.
-3. Open the VR project in the development engine.
-4. Import the asset using the Gaussian Splatting plugin.
-5. Adjust the position, rotation, scale, etc.
-6. Place vegetation in the garden environment.
+### Troubleshooting
 
-## Problems Encountered
-- Finding a free Gaussian Splatting software
+- *"Project was made with a different version of Unity"* — install 6000.6.6f1 exactly; other versions may upgrade the project.
+- *Test Runner shows "No tests to show"* — click the editor window, press Cmd/Ctrl + R to refresh, and wait for compilation to finish.
 
-## Remaining Limitations
-- Performance when rendering multiple Gaussian Splatting assets simultaneously
-- Maintaining visual quality while optimizing assets for VR
-- Improving vegetation capture quality
-- Supporting additional vegetation types
+## Continuous Integration
 
-## Next Steps
-Our next steps include continuing to test the Gaussian Splatting workflow, importing additional vegetation, improving the organization of the virtual garden, and optimizing performance for VR. 
+GitHub Actions (`.github/workflows/blank.yml`) runs the Unity EditMode tests on every pull request to `main`, then builds a Windows player. A pull request cannot merge unless the **Unity Edit Mode Tests** check passes.
 
-As development progresses, we will update this README with additional findings and technical details. 
+## Repository Layout
+
+| Path | Contents |
+|---|---|
+| `Assets/Scenes/` | Unity scenes |
+| `Assets/Scripts/` | Runtime C# scripts (`OregonVR.Runtime` assembly) |
+| `Assets/Tests/PlayMode/` | Automated tests (`OregonVR.PlayModeTests` assembly) |
+| `Assets/Models/` | 3D models and reconstructed assets |
+| `docs/` | Requirements, design, and risk register |
+
+## Asset Workflow (planned)
+
+1. Capture photos or video of a plant from many angles (iPhone camera or Polycam).
+2. Reconstruct a Gaussian Splatting asset (3D Splat App; tool still under evaluation).
+3. Clean up the asset and export it in a format the Unity splatting plugin supports.
+4. Import it into `Assets/Models/`, then position and scale it in the garden scene.
+5. Test performance on the target headset.
+
+## Documentation
+
+- [Requirements](docs/requirements.md)
+- [Technical design](docs/design.md)
+- [Risk register and safety-net plan](docs/risks.md)
+- [Contributing guide](CONTRIBUTING.md)
+- [AI tool instructions](AGENTS.md)
+
+## Team
+
+Swathi Pappoppula · Shreya Suresh · Bryden Takayama
