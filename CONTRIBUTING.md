@@ -11,7 +11,7 @@ Treat teammates respectfully, provide constructive feedback, communicate blocker
 Clone the repository:
 
 ```bash
-git clone https://github.com/swath1p/OregonVR.git
+git clone https://github.com/2026-2027-Capstone-Projects/OregonVR.git
 cd OregonVR
 ```
 
@@ -41,7 +41,7 @@ Write readable, consistent, and maintainable code. The team will document the ch
 
 ## Testing
 
-Test new features and bug fixes before submitting a pull request. Add or update automated tests when appropriate. The team will document its test framework, test commands, and coverage requirements once configured.
+Tests use the Unity Test Framework (NUnit) and live in Assets/Tests/PlayMode/. Run them in Unity with Window → General → Test Runner → EditMode → Run All. Every bug fix or new behavior should add or update a test, and all tests must pass before a pull request is opened.
 
 ## Definition of Done
 
@@ -78,7 +78,7 @@ Pull requests must describe the changes, reference the related task when applica
 
 ## CI/CD
 
-The team will configure continuous integration to run relevant tests and quality checks. The team will document the pipeline, mandatory jobs, and how to review failed logs once CI is established.
+GitHub Actions (.github/workflows/blank.yml) runs on every pull request to main: the Unity Edit Mode Tests job runs all tests, then a Windows build is produced. The test check is required before merging. If it fails, open the PR’s Checks → Details link and read the first failing step in the log.
 
 ## Security & Secrets
 
