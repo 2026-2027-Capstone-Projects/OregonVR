@@ -5,7 +5,7 @@ public class ModelClickListener : MonoBehaviour
 {
     public void HandleClick()
     {
-        Debug.Log("User click");
+        Debug.Log("broken");
     }
 
     private void OnMouseDown()
