@@ -1,110 +1,111 @@
-# Oregon Garden VR – Technical Design
+
+# Oregon Garden VR - Technical Design
 
 ## 1. System Overview
-This project creates an immersive virtual reality experience that lets users explore digital representations of real-world gardens and vegetation in Oregon. It uses Unity as its development environment and explores 3D reconstruction techniques, including Gaussian Splatting, to create realistic plants and garden environments. Users will navigate a virtual garden, observe different types of vegetation, and learn about the plants in it.
 
-The project is in its early stage. The team is setting up the Unity project, evaluating reconstruction tools, collecting garden imagery, and building a first prototype. Features that are not implemented yet are described as planned.
+Oregon Garden VR is a virtual reality application that allows users to explore digital representations of real-world gardens and vegetation in Oregon. The project uses Unity and investigates 3D reconstruction techniques, including Gaussian Splatting, to create realistic garden environments. Users will be able to navigate a virtual garden, observe different types of vegetation, and interact with plants to learn more about them. Additional features, such as different seasons and times of day, are planned. The project is currently in its early development stage. The team has established the Unity project, implemented basic model interactions, and set up automated testing. Reconstruction tools and VR hardware compatibility are still being evaluated.
 
 ## 2. System Architecture
 
+The application uses Unity as its main development environment. Garden imagery will be processed through a reconstruction pipeline and imported into Unity, where users can explore and interact with the environment.
+
 ```mermaid
-flowchart LR
-    A[Garden photos / video<br/>iPhone, Polycam] --> B[3D reconstruction<br/>Gaussian Splatting]
-    B --> C[Unity project<br/>scenes + assets]
-    C --> D[Build<br/>GitHub Actions]
-    D --> E[GitHub Release]
-    E --> F[VR headset<br/>user explores garden]
+flowchart TD
+    A["Garden Photos and Videos"] --> B["3D Reconstruction"]
+    B --> C["Unity Environment"]
+    D["3D Plant Models"] --> C
+    C --> E["VR Navigation"]
+    C --> F["Plant Interactions"]
+    F --> G["Plant Information Display"]
+    C --> H["Testing and Deployment"]
 ```
 
-Only the Unity project (C) and the CI build (D) exist today. Reconstruction (B) is being evaluated, and distribution (E–F) is planned for Week 10.
+The Unity project and basic interaction scripts currently exist. The reconstruction pipeline, VR controls, and plant information display are still being developed or evaluated.
+
+### Component Responsibilities
+
+| Component | Responsibility | Status |
+|-----------|----------------|--------|
+| Unity Environment | Manages garden scenes, lighting, and vegetation | In development |
+| 3D Reconstruction | Converts captured imagery into garden models | Under evaluation |
+| VR Controls | Handles movement, head tracking, and object selection | Planned |
+| Plant Interaction | Detects user interaction with vegetation | Basic prototype |
+| Plant Information | Displays information about selected plants | Planned |
+| Testing and CI | Runs automated tests and builds | Implemented |
 
 ## 3. Technology Stack
-| Component | Choice |
-|---|---|
-| Game engine | Unity 6000.6.6f1, Universal Render Pipeline |
-| Language | C# |
-| 3D reconstruction | Gaussian Splatting (tool under evaluation) |
-| VR interaction | Unity XR Interaction Toolkit (planned) |
-| Tests | Unity Test Framework (NUnit) |
-| CI | GitHub Actions with GameCI |
-| Version control | Git / GitHub |
 
-## 4. Interfaces and Contracts
+| Component | Technology |
+|-----------|------------|
+| Game Engine | Unity 6000.6.6f1, Universal Render Pipeline |
+| Programming Language | C# |
+| 3D Reconstruction | Gaussian Splatting (under evaluation) |
+| VR Interaction | Unity XR Interaction Toolkit (planned) |
+| Testing | Unity Test Framework (NUnit) |
+| Continuous Integration | GitHub Actions with GameCI |
+| Version Control | Git / GitHub |
+| Distribution | GitHub Releases (planned) |
 
-### 4a. Reconstruction-to-Unity Interface
-The reconstruction pipeline must produce assets that the selected Unity splatting plugin can import and render correctly. The supported file format, import process, and compatibility requirements will be fixed after the team selects and tests a reconstruction package.
 
-### 4b. Unity Scene Interface
-Garden assets are organized in Unity scenes under `Assets/Scenes/`. Each scene defines the placement and scale of reconstructed objects, environmental features, and interactive components. Scene-structure changes that affect other parts of the application are documented here.
+## 4. System Components and Interfaces
 
-### 4c. VR Input Interface
-The VR input system translates headset and controller input into application behavior: head tracking, navigation, and object selection. Exact input mappings depend on the selected headset and Unity XR packages.
+### 4.1 Garden Reconstruction
 
-### 4d. Model Selection Interface
-`ModelClickListener` (`Assets/Scripts/`) is attached to a selectable model. When the model is clicked, `HandleClick()` runs. Today it logs `"User click"`; it will later open the plant's information panel (FR4).
+The team plans to capture photographs and videos of real gardens in Oregon and use 3D reconstruction tools to create realistic digital representations of vegetation. Gaussian Splatting is currently being evaluated as a possible reconstruction method. The selected tools must produce assets that can be imported into Unity and rendered efficiently in VR.
 
-## 5. Current Implementation
-At the named commit, the repository contains:
+### 4.2 Unity Environment
 
-- **Unity project:** Unity 6000.6.6f1, URP, started from Unity's starter template.
-- **Scene:** `Assets/Scenes/GetStarted_Scene.unity` (starter scene; the garden scene is not built yet).
-- **Script:** `ModelClickListener` in the `OregonVR.Runtime` assembly.
-- **Tests:** `Assets/Tests/PlayMode/OregonVR.PlayModeTests.cs`, in the `OregonVR.PlayModeTests` assembly:
-  - `BasicPlayModeTest`: checks that the Unity test runtime can create a GameObject.
-  - `ModelClickListener_LogsMessage`: fails if `HandleClick()` stops logging `"User click"`.
-- **CI:** `.github/workflows/blank.yml` (Section 8).
+Unity will serve as the main development environment for the project. It will manage the garden scene, vegetation models, lighting, and user interactions. The team plans to combine reconstructed assets with additional 3D models if needed to create a complete garden environment.
 
-## 6. Data Model
-The project works mainly with visual assets and Unity scene data:
+### 4.3 VR Interactions
 
-- **Source imagery:** photographs and videos captured at the garden.
-- **Reconstructed assets:** output of the selected 3D reconstruction process.
-- **Unity scenes:** environment objects, cameras, lighting, and interactions.
-- **Vegetation metadata:** plant names and descriptions linked to garden objects (planned).
-- **Project configuration:** Unity packages, project settings, and build settings.
+Users will navigate the garden using a VR headset and interact with vegetation through headset or controller input. The planned interaction system will allow users to select plants and view information such as their names, descriptions, and characteristics. The exact implementation will depend on the selected headset and Unity's supported VR interaction tools.
 
-## 7. Deployment and Production Target
+### 4.4 Plant Information
 
-### 7a. Walking Skeleton (Fall Week 10)
-The walking skeleton is the thinnest end-to-end slice: a Unity build with one garden scene and at least one reconstructed plant that a user can look around in on a VR headset.
+Plant information will be associated with vegetation objects in the Unity environment. When a user selects a plant, the application will retrieve the corresponding information and display it through a user interface. The storage format and implementation of this feature have not yet been finalized.
 
-It will be distributed as an installable build attached to a **GitHub Release** in this repository. For Week 10, "deployed" means someone outside the team downloads that release and runs it on the target headset. The Repo Checkpoint 2 cover will link to the release page.
+## 5. Testing and Deployment
 
-### 7b. Ownership and Agreement
-| Item | Decision |
-|---|---|
-| Distribution channel | GitHub Releases on 2026-2027-Capstone-Projects/OregonVR |
-| Target hardware | To be confirmed with partner by Nov 13, 2026 (see P2) |
-| Account / infrastructure owner | Bryden Takayama (GitHub Releases, Unity CI license) |
-| Agreed by | Dr. Raffaele De Amicis (partner) |
-| Agreement status | Not yet requested, will ask by Nov 6 by Shreya Suresh; awaiting confirmation. Tracked as P1 in docs/risks.md. Expected by Nov 9. |
-| Outside tester for Week 10 | Dr. De Amicis or a member of his group |
+### 5.1 Automated Testing
 
-## 8. Testing and Continuous Integration
-**Workflow:** `.github/workflows/blank.yml`, triggered on every pull request to `main`, every push to `main`, and manually.
+The project uses Unity Test Framework and GitHub Actions with GameCI.
 
-1. **test** job: runs the Unity Test Framework EditMode tests with `game-ci/unity-test-runner` on Unity 6000.6.6f1 and uploads the results.
-2. **build** job: runs only if the tests pass; builds a Windows 64-bit player with `game-ci/unity-builder` and uploads it as an artifact.
+Current PlayMode tests are located in `Assets/Tests/PlayMode/OregonVR.PlayModeTests.cs` and include:
 
-**Safety net:** `ModelClickListener_LogsMessage` fails if `ModelClickListener.HandleClick()` stops logging its message. The team confirmed this by breaking the method on a branch and watching CI fail: https://github.com/2026-2027-Capstone-Projects/OregonVR/actions/runs/41587265763/job/125755552535.
+- `BasicPlayModeTest`: Verifies that Unity can create a GameObject.
+- `ModelClickListener_LogsMessage`: Verifies that `HandleClick()` logs `"User click"`.
 
-**Merge gate:** branch protection on `main` requires the Unity Edit Mode Tests check to pass and one teammate's approval.
+The CI workflow is located at `.github/workflows/blank.yml`. It is configured to run tests and produce build artifacts. The team has also tested whether breaking the interaction script causes CI to fail.
 
-**Manual testing:** VR comfort, navigation, and rendering performance are tested by hand on the target headset before each release (see the Safety Net Plan in docs/risks.md).
+### 5.2 VR Deployment
 
-## 9. Decisions Deferred
-| Decision | Why deferred |
-|---|---|
-| Primary VR headset | Needs confirmation of hardware availability (P2) |
-| Gaussian Splatting implementation | Needs evaluation of Unity integration and VR performance |
-| Reconstruction file format | Depends on the selected reconstruction tool |
-| Navigation method (teleport vs. smooth) | Needs usability and comfort testing |
-| Vegetation information display | Depends on confirmed interaction requirements |
+The Fall Week 10 walking skeleton is planned to include one garden scene, at least one reconstructed plant, and basic VR viewing functionality. The application will be distributed through GitHub Releases so an outside tester can download and run the build.
 
-## 10. Open Technical Questions
-- Which Gaussian Splatting implementation best balances visual quality and VR performance?
-- How should garden footage be captured to produce usable reconstructions?
-- Which reconstructed asset formats import and render reliably in Unity?
-- What rendering optimizations will VR need?
-- How should vegetation information be linked to reconstructed assets?
-- How will the team measure rendering performance on the selected hardware?
+**Hardware Compatibility:** The current CI pipeline produces Windows 64-bit builds. This may work for PC-connected VR headsets, but standalone headsets such as Meta Quest require a different build target.
+
+The team must confirm the target headset with the project partner before finalizing the build configuration and deployment process. Manual testing will verify navigation, rendering quality, and VR performance.
+
+## 6. Architectural Decisions and Alternatives
+
+One major technical decision is whether to use Gaussian Splatting, traditional 3D modeling, or a combination of both.
+
+| Approach | Advantages | Limitations |
+|----------|------------|-------------|
+| Gaussian Splatting | Realistic reconstruction of captured gardens | Potential performance and interaction limitations |
+| Traditional 3D Models | Easier object selection and customization | Requires additional modeling work |
+| Hybrid Approach | Realistic environments with interactive 3D plants | Requires combining different asset types |
+
+The team will continue developing the initial prototype using traditional 3D assets while evaluating Gaussian Splatting. A hybrid approach may be considered if Gaussian Splatting provides realistic environments but makes individual plant interactions difficult. The final decision will depend on Unity compatibility, visual quality, and VR performance testing.
+
+## 7. Open Questions and Next Steps
+
+The following decisions still need to be finalized:
+
+- **VR Headset:** Confirm which headset will be used and update the build pipeline accordingly.
+- **Gaussian Splatting:** Select a compatible reconstruction tool and test its performance.
+- **Plant Interactions:** Expand the current interaction script to display plant information.
+- **Navigation:** Determine whether teleportation or smooth movement is more suitable.
+- **Performance:** Test rendering quality and frame rate on the target headset.
+
+The team will continue updating this document as these decisions are made and the prototype develops.
